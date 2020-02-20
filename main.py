@@ -321,7 +321,7 @@ def main(data_path, embedding_path, rnn_dim, save_dir,
                    verbose_level=verbose_level)
 
     # Model saving
-    save_path = save_dir + '\ey_sentiment_model.h5'
+    save_path = save_dir + '\sentiment_model.h5'
     sequential.save(save_path)
     print("Model saved to: ", save_path)
 
