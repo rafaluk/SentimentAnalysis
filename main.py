@@ -35,6 +35,7 @@ def convert_input_to_x_and_y(input_x, input_y):
     """
 
     # Get rid of apostrophes, comas and double spaces
+    # TODO: replace with regex, e.g. [\s]+ -> " "
     x = input_x.apply(lambda x: x.replace("\'", "").replace(",", "").replace("   ", "  ").replace("  ", " ")[1:-1])
     x = list(x)
 
@@ -205,11 +206,11 @@ def fit_model(model, X_train, X_val, y_train, y_val,
     # Fit the model with specified arguments.
     # Use EarlyStopping if accuracy improvement is not sufficient
     model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size,
-                        callbacks=[EarlyStopping(monitor='acc',
-                                                 min_delta=0.0001)],
-                        shuffle=True,
-                        validation_data=(X_val, y_val),
-                        verbose=verbose_level)
+              callbacks=[EarlyStopping(monitor='acc',
+                                       min_delta=0.0001)],
+              shuffle=True,
+              validation_data=(X_val, y_val),
+              verbose=verbose_level)
 
 
 def evaluate_model(model, X_val, y_val, verbose_level):
@@ -267,6 +268,9 @@ def main(data_path, embedding_path, rnn_dim, save_dir,
     tokenizer = Tokenizer()
     tokenizer.fit_on_texts(X)
     encoded_X = tokenizer.texts_to_sequences(X)
+
+    #TODO: Normalize tokenized vectors (to values 0-1).
+
     print("All words tokenized.")
 
     # Define vocabulary size, i.e. number of all words.
